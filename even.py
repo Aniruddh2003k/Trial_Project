@@ -26,7 +26,15 @@ class Numbers:
         return True
 
 a = int(input("Enter a number: "))
-s = input("Enter any 1 option if you want to check your number to be 'even', 'odd' or 'prime': ")
+
+while True:
+
+    s = input("Enter any 1 option if you want to check your number to be 'even', 'odd' or 'prime': ").strip().lower()
+
+    if s in ['even','odd','prime']:
+        break
+    else:
+        print("Please enter a valid choice: 'even', 'odd', 'prime':  ")
 
 n1 = Numbers(a)
 
@@ -49,5 +57,4 @@ if s == 'prime':
     else:
         print("It is not a prime number")
 
-if s != 'even' and s != 'odd' and s != 'prime':
-    print("Please enter a valid choice: 'even', 'odd', 'prime':  ")
+
