@@ -9,6 +9,7 @@ id = c3c71bd0-e1ff-40f4-8260-134f472cf4d8
 
 [config.relations.collections]
 rootDirectory = Collections
+files[] = {"id":"47523158-08727437-b4e9-4ce8-a095-8225cae29f72","path":"Geeks Collection.json","metaData":{}}
 
 [config.relations.collections.metaData]
 

@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "08727437-b4e9-4ce8-a095-8225cae29f72",
+		"name": "Geeks Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "47523158-08727437-b4e9-4ce8-a095-8225cae29f72"
+	},
+	"item": [
+		{
+			"name": "GET_Request",
+			"id": "ad1b3fac-b326-4551-8430-c5ab0590bd70",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /users",
+			"id": "3d0175d5-7479-47ca-a158-9e7af4a7e405",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
