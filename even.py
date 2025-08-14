@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template,jsonify
 
 app = Flask(__name__)
 
@@ -28,10 +28,18 @@ def home():
     
     if request.method == "POST":
         try:
-            number = int(request.form["number"])
-            check_type = request.form["check_type"]
-            
+            number = request.get_json().get("number","none")
+            if number == "none":
+                return "number missing"
+            number = int(number)
             num = Numbers(number)
+            check_type = request.get_json().get("check_type")
+            if isinstance(check_type,bool):
+                return jsonify({
+                    "error" : "Invalid datatype: boolean",
+                    "message" : "Enter 'even', 'odd' or 'prime' as a string"
+                })
+            check_type = str(check_type)
             result = {
                 "even": num.even(),
                 "odd": num.odd(),
@@ -41,10 +49,10 @@ def home():
         except ValueError:
             result = "Please enter a valid integer"
     
-    return render_template("new.html", 
-                         number=number,
-                         check_type=check_type,
-                         result=result)
+    return  {  "number":number,
+                         "check_type":check_type,
+                         "result":result}
 
+                      
 if __name__ == "__main__":
     app.run(debug=True)
