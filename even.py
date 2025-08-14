@@ -1,72 +1,50 @@
-from fastapi import FastAPI
+from flask import Flask, request, render_template
 
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello from your API!"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int):
-    return {"item_id": item_id}
+app = Flask(__name__)
 
 class Numbers:
-    def __init__(self,n):
+    def __init__(self, n):
         self.n = n
 
     def even(self):
-    
-        if self.n % 2 == 0:
-            return True
-        else:
-            return False
+        return self.n % 2 == 0
 
     def odd(self):
-    
-        if self.n % 2 != 0:
-            return True
-        else:
-            return False
+        return self.n % 2 != 0
 
     def is_prime(self):
-        count = 0
         if self.n <= 1:
-            print(self.n," is not a prime number")
-        for i in range(2,self.n):
+            return False
+        for i in range(2, int(self.n ** 0.5) + 1):
             if self.n % i == 0:
                 return False
         return True
 
-a = int(input("Enter a number: "))
-
-while True:
-
-    s = input("Enter any 1 option if you want to check your number to be 'even', 'odd' or 'prime': ").strip().lower()
-
-    if s in ['even','odd','prime']:
-        break
-    else:
-        print("Please enter a valid choice: 'even', 'odd', 'prime':  ")
-
-n1 = Numbers(a)
-
-
-if s == 'even':
-    if n1.even():
-        print("It is an even number")
-    else:
-        print("It is not an even number")
-
-if s == 'odd':
-    if n1.odd():
-        print("It is an odd number")
-    else:
-        print("It is not an odd number")
+@app.route("/", methods=["GET", "POST"])
+def home():
+    result = None
+    number = None
+    check_type = None
     
-if s == 'prime':
-    if n1.is_prime():
-        print("It is a prime number")
-    else:
-        print("It is not a prime number")
+    if request.method == "POST":
+        try:
+            number = int(request.form["number"])
+            check_type = request.form["check_type"]
+            
+            num = Numbers(number)
+            result = {
+                "even": num.even(),
+                "odd": num.odd(),
+                "prime": num.is_prime()
+            }.get(check_type)
+            
+        except ValueError:
+            result = "Please enter a valid integer"
+    
+    return render_template("new.html", 
+                         number=number,
+                         check_type=check_type,
+                         result=result)
 
-
+if __name__ == "__main__":
+    app.run(debug=True)
